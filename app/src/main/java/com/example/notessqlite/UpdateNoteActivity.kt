@@ -25,13 +25,31 @@ class UpdateNoteActivity : AppCompatActivity() {
         }
 
         val note = db.getNoteByID(noteId)
+        if (note == null) {
+            Toast.makeText(this, "Note not found", Toast.LENGTH_SHORT).show()
+            finish()
+            return
+        }
+
         binding.updateTitleEditText.setText(note.title)
         binding.updateContentEditText.setText(note.content)
 
         binding.updateSaveButton.setOnClickListener {
-            val newTitle = binding.updateTitleEditText.text.toString()
-            val newContent = binding.updateContentEditText.text.toString()
-            val updateNote = Note(noteId, newTitle, newContent)
+            val newTitle = binding.updateTitleEditText.text.toString().trim()
+            val newContent = binding.updateContentEditText.text.toString().trim()
+
+            if (newTitle.isBlank()) {
+                binding.updateTitleEditText.error = "Title is required"
+                return@setOnClickListener
+            }
+
+            val updateNote = Note(
+                id = noteId,
+                title = newTitle,
+                content = newContent,
+                createdAt = note.createdAt,
+                updatedAt = System.currentTimeMillis(),
+            )
             db.updateNote(updateNote)
             finish()
             Toast.makeText(this, "Changes Saved", Toast.LENGTH_SHORT).show()
