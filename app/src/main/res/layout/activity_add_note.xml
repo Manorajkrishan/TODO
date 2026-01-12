@@ -17,7 +17,7 @@
         android:fontFamily="@font/poppins"
         android:text="Add Note."
         android:textColor="@color/orange"
-        android:textSize="24dp" />
+        android:textSize="24sp" />
 
     <ImageView
         android:id="@+id/saveButton"
@@ -33,6 +33,7 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:hint="Enter the Title"
+        android:inputType="textCapSentences"
         android:padding="12dp"
         android:textSize="20sp"
         android:layout_below="@+id/addNoteHeading"
@@ -47,6 +48,7 @@
         android:layout_height="match_parent"
         android:hint="Enter the description"
         android:gravity="top"
+        android:inputType="textMultiLine|textCapSentences"
         android:padding="12dp"
         android:textSize="18sp"
         android:fontFamily="@font/poppins"
